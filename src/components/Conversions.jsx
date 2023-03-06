@@ -1,10 +1,7 @@
-import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
-const Conversions = () => {
+const Conversions = ({currency, loading}) => {
 
-    const [currency, setCurrency] = useState({});
-    const [loading, setLoading] = useState(false);
     const [amount, setAmount] = useState(1);
     const [crncy, setCrncy] = useState('USD');
     const [index, setIndex] = useState(0);
@@ -23,17 +20,6 @@ const Conversions = () => {
             rate: 0
         }
     ];
-    
-
-    const fetchCurrency = async () => {
-        const {data: {bpi}} = await axios.get('https://api.coindesk.com/v1/bpi/currentprice.json');
-        setCurrency(bpi)
-        setLoading(true);
-    }
-    
-    useEffect(() => {
-        fetchCurrency();
-    }, []);
 
     rates[0].rate = loading && currency.USD.rate_float;
     rates[1].rate = loading && currency.EUR.rate_float;
