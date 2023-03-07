@@ -26,17 +26,17 @@ const Rates = ({currency, loading}) => {
             setRates([...ascRates])
             setSort('desc');
         }
-        console.log(rates);
     }
 
 
-    return <div>
-        <h1>Current Conversion Rates</h1>
-        <h3>Rates <button onClick={sortHandle}>Sort</button></h3>
+    return <div className='rates-container'>
+        <h1 className='rates-header'>Current Conversion Rates</h1>
+        <h3 className='rates-title'>Rates</h3>
         {!click && <div className="rate-floats">
             <p>1 BTC is {loading && 1/currency.USD.rate_float}</p>
             <p>1 BTC is {loading && 1/currency.EUR.rate_float}</p>
             <p>1 BTC is {loading && 1/currency.GBP.rate_float}</p>
+            <button className="sort-btn" onClick={sortHandle}>Sort</button>
         </div>}
 
     {click && <div className="rate-floats">
@@ -45,6 +45,7 @@ const Rates = ({currency, loading}) => {
         <p>1 BTC is {rate}</p>
         </div>
         })}
+        <button className="sort-btn" onClick={sortHandle}>Sort</button>
     </div>}
 
     </div>

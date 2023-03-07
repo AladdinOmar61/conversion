@@ -11,7 +11,6 @@ function App() {
   const [currency, setCurrency] = useState({});
   const [loading, setLoading] = useState(false);
   const [time, setTime] = useState(null);
-  // const [refresh, setRefresh] = useState(true);
   
 
   const ratesHandler = () => {
@@ -33,14 +32,6 @@ function App() {
 useEffect(() => {
     fetchCurrency();
 }, []);
-
-// useEffect(() => {
-//   const interval = setInterval(() => {
-//     setRefresh(true);
-//   }, 300000)
-
-//   return () => clearInterval(interval);
-// }, [])
 
   return (
     <div className="App">

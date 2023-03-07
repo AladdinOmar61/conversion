@@ -28,17 +28,18 @@ const Conversions = ({currency, loading}) => {
       };
     
 
-    return <div>
-    <h1>Conversions</h1>
+    return <div className="conversion-container">
+    <h1 className='conversion-header'>Conversions</h1>
+    <div className="currency-div">
 <label htmlFor="currencies">Choose a Currency:</label>
 <input type="text" value={amount} onChange={amountHandler}></input>
-<select name="currencies" id="currencies" value={crncy} onChange={currencyHandler}>
+<select className="curr-selector" name="currencies" id="currencies" value={crncy} onChange={currencyHandler}>
   <option value="USD">USD</option>
   <option value="EUR">EUR</option>
   <option value="GBP">GBP</option>
 </select>
-<p>{amount} {crncy} = {amount / rates[index]}</p>
-
+<p>{amount} {crncy} = {amount / rates[index]} BTC</p>
+</div>
 </div>
 }
 
