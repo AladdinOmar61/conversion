@@ -11,7 +11,7 @@ function App() {
   const [currency, setCurrency] = useState({});
   const [loading, setLoading] = useState(false);
   const [time, setTime] = useState(null);
-  const [refresh, setRefresh] = useState(true);
+  // const [refresh, setRefresh] = useState(true);
   
 
   const ratesHandler = () => {

@@ -6,39 +6,25 @@ const Conversions = ({currency, loading}) => {
     const [crncy, setCrncy] = useState('USD');
     const [index, setIndex] = useState(0);
 
-    const rates = [
-        {
-            type: 'USD',
-            rate: 0,
-        },
-        {
-            type: 'EUR',
-            rate: 0
-        },
-        {
-            type: 'GBP',
-            rate: 0
-        }
-    ];
+        let currUSD = currency.USD.rate_float;
+        let currEUR = currency.EUR.rate_float;
+        let currGBP = currency.GBP.rate_float;
 
-    rates[0].rate = loading && currency.USD.rate_float;
-    rates[1].rate = loading && currency.EUR.rate_float;
-    rates[2].rate = loading && currency.GBP.rate_float;
+        let rates = [currUSD, currEUR, currGBP];
 
     const amountHandler = (e) => {
         setAmount(e.target.value)
     }
 
     const currencyHandler = (e) => {
-        setCrncy(e.target.value);
-        switch(crncy) {
-            case 'USD':
+        if(e.target.value === 'USD') {
             setIndex(0);
-            case 'EUR':
+        } else if (e.target.value === 'EUR') {
             setIndex(1);
-            case 'GBP':
+        } else {
             setIndex(2);
         }
+        setCrncy(e.target.value);
       };
     
 
@@ -51,8 +37,7 @@ const Conversions = ({currency, loading}) => {
   <option value="EUR">EUR</option>
   <option value="GBP">GBP</option>
 </select>
-
-<p>{amount} {crncy} = {amount / rates[index].rate}</p>
+<p>{amount} {crncy} = {amount / rates[index]}</p>
 
 </div>
 }
