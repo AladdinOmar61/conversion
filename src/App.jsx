@@ -23,32 +23,24 @@ function App() {
   }
 
   const fetchCurrency = async () => {
-    const {data: {bpi}} = await axios.get('https://api.coindesk.com/v1/bpi/currentprice.json');
-    const rates = Object.keys(bpi).reduce((acc, currentCode) => {
-      acc[currentCode] = bpi[currentCode].rate_float;
-      return acc;
-    }, {});
+    const {data: {bpi, time}} = await axios.get('https://api.coindesk.com/v1/bpi/currentprice.json');
     setLoading(true);
-    setCurrency(rates);
+    setCurrency(bpi);
+    console.log(bpi);
     setTime(time.updatedISO);
 }
 
 useEffect(() => {
     fetchCurrency();
-    if(refresh) {
-      fetchCurrency();
-      setRefresh(false);
-    }
+}, []);
 
-}, [refresh]);
+// useEffect(() => {
+//   const interval = setInterval(() => {
+//     setRefresh(true);
+//   }, 300000)
 
-useEffect(() => {
-  const interval = setInterval(() => {
-    setRefresh(true);
-  }, 300000)
-
-  return () => clearInterval(interval);
-}, [])
+//   return () => clearInterval(interval);
+// }, [])
 
   return (
     <div className="App">
@@ -56,10 +48,9 @@ useEffect(() => {
       <button className="nav-btn" onClick={ratesHandler}>Rates</button>
       <button className="nav-btn" onClick={conversionHandler}>Conversions</button>
       </div>
-      <pre>{JSON.stringify(currency)}</pre>
       {page === 'rates' && <Rates fetchCurrency={fetchCurrency} currency={currency} setCurrency={setCurrency} loading={loading}/>}
       {page === 'conversion' && <Conversions fetchCurrency={fetchCurrency} currency={currency} setCurrency={setCurrency} loading={loading}/>}
-      <Footer time={time}/>
+      {time ? <Footer time={time}/> : null}
     </div>
   )
 }

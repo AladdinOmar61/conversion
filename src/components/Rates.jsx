@@ -4,70 +4,44 @@ const Rates = ({currency, loading}) => {
     
     const [sort, setSort] = useState('asc');
     const [click, setClick] = useState(false);
+    const [rates, setRates] = useState([]);
 
-    // const rates = Object.keys(currency);
-    // console.log(rates);
-
-    const rates = [
-        {
-            type: 'USD',
-            rate: 0,
-        },
-        {
-            type: 'EUR',
-            rate: 0
-        },
-        {
-            type: 'GBP',
-            rate: 0
-        }
-    ];
-
-    // rates[0].rate = loading && 1 / currency.EUR.rate_float;
-    // rates[1].rate = loading && 1 / currency.EUR.rate_float;
-    // rates[2].rate = loading && 1 / currency.GBP.rate_float;
 
     const sortHandle = () => {
-        setClick(true);
+        // setClick(true);
+        let currUSD = 1 / currency.USD.rate_float;
+        let currEUR = 1 / currency.EUR.rate_float;
+        let currGBP = 1 / currency.GBP.rate_float;
+
+        let rates2 = [currUSD, currEUR, currGBP];
+
+        // setRates(rates2);
+
         if(sort === 'asc') {
-            rates.sort((a, b) => a.rate - b.rate);
+            const ascRates = rates2.sort((a, b) => a - b)
+            
+            setRates([...ascRates])
             setSort('desc');
         } else {
-            rates.sort((a, b) => b.rate - a.rate);
+            const ascRates = rates2.sort((a, b) => b - a)
+            
+            setRates([...ascRates])
             setSort('asc');
         }
-        
+        console.log(rates);
     }
-
-    // const sortHandle = () => {
-    //     const newOrder = sortOrder === "asc" ? "desc" : "asc";
-    //     const sortedRates = exchangeRates.sort((a, b) => {
-    //       return newOrder === "asc" ? a.rate - b.rate : b.rate - a.rate;
-    //     });
-    //     setExchangeRates(sortedRates);
-    //     setSortOrder(newOrder);
-    //   };
 
 
     return <div>
         <h1>Current Conversion Rates</h1>
         <h3>Rates <button onClick={sortHandle}>Sort</button></h3>
-    <div className="rate-floats">
-        {click && rates.map(({type, rate}) => {
-            return <div key={type}>
-            <p>1 {type} is {rate} BTC </p>
-            {console.log(rate)}
-            </div> 
+    {<div className="rate-floats">
+        {rates.map((rate) => {
+        return <div>
+        <p>{rate}</p>
+        </div>
         })}
-
-{!click && rates.map(({type, rate}) => {
-            return <div key={type}>
-            <p>1 {type} is {rate} BTC </p>
-            {console.log(rate)}
-            </div> 
-        })}
-        
-            </div>
+    </div>}
     </div>
 }
 
